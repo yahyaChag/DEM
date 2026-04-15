@@ -44,8 +44,7 @@ export default function AdminCleaningPage() {
   }, [supabase]);
 
   const updateStatus = async (id: string, newStatus: string) => {
-    const { error } = await supabase
-      .from('rooms')
+    const { error } = await (supabase.from('rooms') as any)
       .update({ status: newStatus as any })
       .eq('id', id);
 

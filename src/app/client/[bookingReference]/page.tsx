@@ -98,7 +98,7 @@ export default function ClientPortalDashboard({ params }: { params: Promise<{ bo
 
     const totalPrice = items.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
 
-    const { error } = await supabase.from('room_service_orders').insert({
+    const { error } = await (supabase.from('room_service_orders') as any).insert({
       booking_id: booking.id,
       items: items as any, // jsonb
       total_price: totalPrice,

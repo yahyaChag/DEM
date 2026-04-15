@@ -51,8 +51,7 @@ export default function AdminRoomServicePage() {
   }, [supabase]);
 
   const updateStatus = async (id: string, newStatus: string) => {
-    const { error } = await supabase
-      .from('room_service_orders')
+    const { error } = await (supabase.from('room_service_orders') as any)
       .update({ status: newStatus as any })
       .eq('id', id);
 

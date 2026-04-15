@@ -50,8 +50,7 @@ export default function AdminReservationsPage() {
   }, [supabase]);
 
   const updateStatus = async (id: string, newStatus: string) => {
-    const { error } = await supabase
-      .from('bookings')
+    const { error } = await (supabase.from('bookings') as any)
       .update({ status: newStatus as any })
       .eq('id', id);
 

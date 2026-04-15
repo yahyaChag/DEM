@@ -95,7 +95,7 @@ export default function BookingPage() {
 
       const bookingReference = `DEM-${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`;
 
-      const { data, error } = await supabase.from('bookings').insert({
+      const { data, error } = await (supabase.from('bookings') as any).insert({
         room_id: room.id,
         guest_name: guest.name,
         guest_email: guest.email,
