@@ -6,7 +6,7 @@ type StatusType =
   | 'Disponible' | 'Occupée' | 'Nettoyage Requis' | 'Maintenance' 
   | 'Confirmée' | 'En attente' | 'Annulée' | 'Arrivé' | 'Départ'
   | 'Payé' | 'Échoué' | 'Paiement sur place'
-  | 'Reçu' | 'En préparation' | 'Livré';
+  | 'Reçu' | 'En préparation' | 'Livré' | 'Annulé' | string;
 
 interface StatusBadgeProps {
   status: StatusType;
@@ -36,6 +36,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       case 'Occupée':
       case 'Maintenance':
       case 'Annulée':
+      case 'Annulé':
       case 'Échoué':
         return 'bg-red-100 text-red-800 hover:bg-red-200 border-red-200';
 
