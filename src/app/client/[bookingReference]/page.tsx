@@ -41,14 +41,15 @@ export default function ClientPortalDashboard({ params }: { params: Promise<{ bo
       .eq('booking_reference', resolvedParams.bookingReference)
       .single();
 
-    if (bData) {
-      setBooking(bData);
+    const bDataAny = bData as any;
+    if (bDataAny) {
+      setBooking(bDataAny);
       
       // Fetch user's active orders
       const { data: oData } = await supabase
         .from('room_service_orders')
         .select('*')
-        .eq('booking_id', bData.id)
+        .eq('booking_id', bDataAny.id)
         .order('created_at', { ascending: false });
       
       if (oData) setOrders(oData);

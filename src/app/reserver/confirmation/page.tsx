@@ -36,14 +36,16 @@ export default function BookingConfirmationPage() {
         .eq('booking_reference', bookingRef)
         .single();
         
-      if (bData) {
-        setBooking(bData);
+      const bDataAny = bData as any;
+      if (bDataAny) {
+        setBooking(bDataAny);
         const { data: rData } = await supabase
           .from('rooms')
           .select('*')
-          .eq('id', bData.room_id)
+          .eq('id', bDataAny.room_id)
           .single();
-        if (rData) setRoom(rData);
+        const rDataAny = rData as any;
+        if (rDataAny) setRoom(rDataAny);
       }
       setLoading(false);
     }
