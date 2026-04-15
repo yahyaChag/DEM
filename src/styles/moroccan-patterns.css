@@ -1,0 +1,31 @@
+/* src/styles/moroccan-patterns.css */
+
+.zellige-bg {
+  background-color: var(--cream);
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23C4663A' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+
+.arch-border {
+  border-top-left-radius: 50% 20px;
+  border-top-right-radius: 50% 20px;
+}
+
+.lantern-glow {
+  box-shadow: 0 0 15px 5px rgba(197, 153, 46, 0.4);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--terracotta);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mahogany);
+}
