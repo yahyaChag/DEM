@@ -24,13 +24,14 @@ export default async function RoomDetailsPage({
     notFound();
   }
 
-  const images = room.picture_urls.length > 0 ? room.picture_urls : [
+  const roomData = room as any;
+  const images = roomData.picture_urls.length > 0 ? roomData.picture_urls : [
     'https://placehold.co/1200x800/E8D5B7/3C1518?text=Chambre+1',
     'https://placehold.co/1200x800/C4663A/FFFFFF?text=Chambre+2'
   ];
 
   // Parse features safely
-  const features = room.features as Record<string, any> || {};
+  const features = roomData.features as Record<string, any> || {};
 
   return (
     <div className="bg-cream min-h-[calc(100vh-80px)] pb-20">
@@ -41,17 +42,17 @@ export default async function RoomDetailsPage({
           <span className="mx-2">&gt;</span>
           <Link href="/chambres" className="hover:text-terracotta">Chambres</Link>
           <span className="mx-2">&gt;</span>
-          <span className="text-mahogany font-medium">{room.name}</span>
+          <span className="text-mahogany font-medium">{roomData.name}</span>
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-4xl md:text-5xl font-playfair font-bold text-mahogany mb-2">{room.name}</h1>
-            <StatusBadge status={room.status} />
+            <h1 className="text-4xl md:text-5xl font-playfair font-bold text-mahogany mb-2">{roomData.name}</h1>
+            <StatusBadge status={roomData.status} />
           </div>
           <div className="text-right">
-            <div className="text-3xl font-bold text-terracotta mb-2">{room.price_per_night} MAD <span className="text-base text-gray-500 font-normal">/ nuit</span></div>
-            <Link href={`/reserver?roomId=${room.id}`}>
+            <div className="text-3xl font-bold text-terracotta mb-2">{roomData.price_per_night} MAD <span className="text-base text-gray-500 font-normal">/ nuit</span></div>
+            <Link href={`/reserver?roomId=${roomData.id}`}>
               <Button size="lg" className="bg-olive hover:bg-jade text-white w-full md:w-auto">
                 Réserver cette chambre
               </Button>
@@ -73,7 +74,7 @@ export default async function RoomDetailsPage({
             <section>
               <h2 className="text-2xl font-playfair font-bold text-mahogany mb-4 border-b border-terracotta/20 pb-2">À propos de cette chambre</h2>
               <p className="text-lg text-gray-700 leading-relaxed font-light whitespace-pre-wrap">
-                {room.description}
+                {roomData.description}
               </p>
             </section>
 
@@ -120,7 +121,7 @@ export default async function RoomDetailsPage({
                 <Check className="h-6 w-6 text-olive" />
                 <p className="text-sm text-gray-700">Petit-déjeuner traditionnel marocain inclus pour toutes les réservations.</p>
               </div>
-              <Link href={`/reserver?roomId=${room.id}`} passHref>
+              <Link href={`/reserver?roomId=${roomData.id}`} passHref>
                 <Button className="w-full h-12 text-lg bg-terracotta hover:bg-mahogany text-white shadow-md">
                   Réserver maintenant
                 </Button>
