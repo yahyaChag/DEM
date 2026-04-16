@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,7 @@ import { Database } from '@/lib/supabase/types';
 
 type Room = Database['public']['Tables']['rooms']['Row'];
 
-export default function BookingPage() {
+function BookingPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const supabase = createClient();
@@ -251,5 +251,13 @@ export default function BookingPage() {
         </MoroccanCard>
       </div>
     </div>
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[60vh] flex justify-center items-center">Chargement...</div>}>
+      <BookingPageContent />
+    </Suspense>
   );
 }
