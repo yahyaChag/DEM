@@ -87,7 +87,7 @@ export function BookingSearch({ className }: { className?: string }) {
 
       <div className="flex-1 w-full flex flex-col gap-2">
         <label className="text-sm font-medium text-mahogany">Personnes</label>
-        <Select value={guests} onValueChange={setGuests}>
+        <Select value={guests} onValueChange={(val) => val && setGuests(val)}>
           <SelectTrigger className="w-full border-terracotta/30">
             <div className="flex items-center">
               <Users className="mr-2 h-4 w-4 text-terracotta" />
