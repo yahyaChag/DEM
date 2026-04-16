@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { MoroccanCard } from '@/components/ui/moroccan-card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ import { Database } from '@/lib/supabase/types';
 type Booking = Database['public']['Tables']['bookings']['Row'];
 type Room = Database['public']['Tables']['rooms']['Row'];
 
-export default function BookingConfirmationPage() {
+function BookingConfirmationContent() {
   const searchParams = useSearchParams();
   const rawRef = searchParams.get('ref');
   // Handle arrays effectively to avoid TS errors
@@ -114,5 +114,13 @@ export default function BookingConfirmationPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BookingConfirmationPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[60vh] flex justify-center items-center">Chargement...</div>}>
+      <BookingConfirmationContent />
+    </Suspense>
   );
 }
