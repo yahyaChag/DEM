@@ -50,11 +50,11 @@ export function Header() {
         {/* Mobile Nav */}
         <div className="md:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-mahogany">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Menu principal</span>
-              </Button>
+            <SheetTrigger
+              render={<Button variant="ghost" size="icon" className="text-mahogany" />}
+            >
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Menu principal</span>
             </SheetTrigger>
             <SheetContent side="right" className="bg-cream border-l border-terracotta/20 flex flex-col pt-20">
               <nav className="flex flex-col gap-6">
