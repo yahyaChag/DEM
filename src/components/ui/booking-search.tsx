@@ -44,15 +44,18 @@ export function BookingSearch({ className }: { className?: string }) {
       <div className="flex-1 w-full flex flex-col gap-2">
         <label className="text-sm font-medium text-mahogany">Dates du séjour</label>
         <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              id="date"
-              variant={"outline"}
-              className={cn(
-                "w-full justify-start text-left font-normal border-terracotta/30",
-                !date && "text-muted-foreground"
-              )}
-            >
+          <PopoverTrigger
+            render={
+              <Button
+                id="date"
+                variant={"outline"}
+                className={cn(
+                  "w-full justify-start text-left font-normal border-terracotta/30",
+                  !date && "text-muted-foreground"
+                )}
+              />
+            }
+          >
               <CalendarIcon className="mr-2 h-4 w-4 text-terracotta" />
               {date?.from ? (
                 date.to ? (
@@ -66,7 +69,6 @@ export function BookingSearch({ className }: { className?: string }) {
               ) : (
                 <span>Sélectionner vos dates</span>
               )}
-            </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
