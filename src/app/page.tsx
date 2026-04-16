@@ -36,12 +36,16 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[85vh] min-h-[600px] w-full flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed z-0 transform scale-105"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-        <div className="absolute inset-0 bg-mahogany/40 z-10" />
+      <section className="relative h-[85vh] min-h-[600px] w-full flex items-center justify-center">
+        {/* Background layer with overflow hidden to contain the scale-105 transform */}
+        <div className="absolute inset-0 overflow-hidden z-0">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed transform scale-105"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
+          <div className="absolute inset-0 bg-mahogany/40" />
+        </div>
+
         <div className="container relative z-20 mx-auto px-4 text-center mt-[-100px] md:mt-0">
           <h1 className="font-playfair text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
             Bienvenue à Diar EL Mehdi
@@ -52,13 +56,13 @@ export default async function Home() {
         </div>
 
         {/* Search Widget Floating */}
-        <div className="absolute -bottom-8 left-0 right-0 z-30 px-4 flex justify-center">
+        <div className="absolute bottom-0 translate-y-1/2 left-0 right-0 z-30 px-4 flex justify-center">
           <BookingSearch className="w-full max-w-4xl" />
         </div>
       </section>
 
       {/* Spacer to account for floating widget */}
-      <div className="h-16 bg-cream" />
+      <div className="h-40 md:h-16 bg-cream" />
 
       {/* About Section */}
       <section className="py-20 bg-cream">
