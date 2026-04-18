@@ -88,40 +88,42 @@ export default async function AdminDashboardPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-8">
-        <Card className="col-span-4 lg:col-span-7">
+        <Card className="col-span-full">
           <CardHeader>
             <CardTitle className="text-mahogany font-playfair">Réservations Récentes</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto overflow-y-hidden border rounded-lg">
               <table className="w-full text-sm text-left">
                 <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b">
                   <tr>
-                    <th className="px-6 py-3 font-semibold">Référence</th>
-                    <th className="px-6 py-3 font-semibold">Client</th>
-                    <th className="px-6 py-3 font-semibold">Chambre</th>
-                    <th className="px-6 py-3 font-semibold">Séjour</th>
-                    <th className="px-6 py-3 font-semibold">Statut</th>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap text-mahogany/80">Référence</th>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap text-mahogany/80">Client</th>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap text-mahogany/80">Chambre</th>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap text-mahogany/80">Séjour</th>
+                    <th className="px-4 py-3 font-semibold whitespace-nowrap text-mahogany/80">Statut</th>
                   </tr>
                 </thead>
                 <tbody>
                   {recentBookings && recentBookings.length > 0 ? (
                     recentBookings.map((booking) => (
-                      <tr key={booking.id} className="bg-white border-b hover:bg-gray-50">
-                        <td className="px-6 py-4 font-mono font-medium text-gray-900">{booking.booking_reference}</td>
-                        <td className="px-6 py-4">{booking.guest_name}</td>
-                        <td className="px-6 py-4">{(booking.rooms as any)?.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                      <tr key={booking.id} className="bg-white border-b hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-4 font-mono font-medium text-gray-900 whitespace-nowrap">{booking.booking_reference}</td>
+                        <td className="px-4 py-4 whitespace-nowrap">
+                          <div className="font-medium text-mahogany">{booking.guest_name}</div>
+                        </td>
+                        <td className="px-4 py-4 whitespace-nowrap text-gray-600">{(booking.rooms as any)?.name}</td>
+                        <td className="px-4 py-4 whitespace-nowrap text-gray-600">
                           {new Date(booking.check_in).toLocaleDateString('fr-FR')} - {new Date(booking.check_out).toLocaleDateString('fr-FR')}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-4 py-4 whitespace-nowrap">
                           <StatusBadge status={booking.status} />
                         </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={5} className="px-6 py-8 text-center text-gray-500">Aucune réservation récente</td>
+                      <td colSpan={5} className="px-4 py-8 text-center text-gray-500">Aucune réservation récente</td>
                     </tr>
                   )}
                 </tbody>
