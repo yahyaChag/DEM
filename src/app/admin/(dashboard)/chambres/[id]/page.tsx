@@ -11,6 +11,9 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
+import { UploadCloud, Trash2 } from 'lucide-react';
+import { uploadToAubergeMedia, generateUniqueFileName } from '@/lib/supabase/storage';
+import { useRef } from 'react';
 
 export default function AdminRoomEditorPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -20,13 +23,15 @@ export default function AdminRoomEditorPage({ params }: { params: Promise<{ id: 
 
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [room, setRoom] = useState<Partial<Database['public']['Tables']['rooms']['Insert']>>({
     name: '',
     description: '',
     price_per_night: 500,
     status: 'Disponible',
     features: { capacity: 2, size: 25, bedType: 'Lit double' },
-    picture_urls: ['https://placehold.co/1200x800/E8D5B7/3C1518?text=Chambre']
+    picture_urls: []
   });
 
   useEffect(() => {
@@ -40,6 +45,41 @@ export default function AdminRoomEditorPage({ params }: { params: Promise<{ id: 
       fetchRoom();
     }
   }, [isNew, resolvedParams.id, supabase]);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    const file = e.target.files[0];
+    setUploading(true);
+    
+    try {
+      const fileName = generateUniqueFileName(file.name);
+      const path = `rooms/${fileName}`;
+      
+      const publicUrl = await uploadToAubergeMedia(file, path);
+      
+      const currentUrls = room.picture_urls || [];
+      setRoom({
+        ...room,
+        picture_urls: [...currentUrls, publicUrl]
+      });
+      
+      toast.success("Image téléchargée");
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      setUploading(false);
+    }
+  };
+
+  const removeImage = (urlToRemove: string) => {
+    const currentUrls = room.picture_urls || [];
+    setRoom({
+      ...room,
+      picture_urls: currentUrls.filter(url => url !== urlToRemove)
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,6 +182,60 @@ export default function AdminRoomEditorPage({ params }: { params: Promise<{ id: 
                   onChange={(e) => setRoom({...room, features: { ...(room.features as any), capacity: e.target.value }})} 
                 />
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Images Management Section */}
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <div className="flex justify-between items-center">
+              <Label className="text-lg font-semibold">Images de la chambre</Label>
+              <div>
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  className="hidden" 
+                  accept="image/*" 
+                  onChange={handleImageUpload} 
+                />
+                <Button 
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => fileInputRef.current?.click()} 
+                  disabled={uploading}
+                  className="flex items-center gap-2"
+                >
+                  <UploadCloud className="h-4 w-4" />
+                  {uploading ? 'Upload...' : 'Ajouter une image'}
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {room.picture_urls && room.picture_urls.length > 0 ? (
+                room.picture_urls.map((url, idx) => (
+                  <div key={idx} className="relative group aspect-square rounded-lg overflow-hidden bg-gray-100 border">
+                    <img src={url} alt={`Room ${idx}`} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Button 
+                        type="button" 
+                        variant="destructive" 
+                        size="icon" 
+                        className="h-8 w-8"
+                        onClick={() => removeImage(url)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="col-span-full py-8 text-center text-gray-400 border-2 border-dashed rounded-lg">
+                  Aucune image ajoutée
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
