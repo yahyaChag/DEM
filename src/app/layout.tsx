@@ -22,8 +22,8 @@ const amiri = Amiri({
 });
 
 export const metadata: Metadata = {
-  title: 'Diar EL Mehdi — Auberge Traditionnelle à Meknès',
-  description: 'Votre havre de paix au cœur de Meknès. Découvrez l\'hospitalité marocaine authentique dans un cadre traditionnel.',
+  title: 'Diar EL Mehdi — Auberge Traditionnelle à Ait Rbaa',
+  description: 'Votre havre de paix au cœur de Ait Rbaa. Découvrez l\'hospitalité marocaine authentique dans un cadre traditionnel.',
 };
 
 export default function RootLayout({
