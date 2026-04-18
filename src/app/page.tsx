@@ -74,14 +74,28 @@ export default async function Home() {
       {/* Spacer to account for floating widget */}
       <div className="h-40 md:h-16 bg-cream" />
 
-      {/* About Section */}
-      <section className="py-20 bg-cream">
-        <div className="container mx-auto px-4 text-center max-w-4xl">
-          <h2 className="font-playfair text-4xl text-mahogany font-bold mb-8">Découvrez Notre Histoire</h2>
-          <ZelligeDivider className="max-w-[200px] mx-auto opacity-50 h-[20px]" />
-          <p className="text-lg text-gray-700 leading-relaxed mt-8 font-light">
-            Niché dans les ruelles historiques de l'ancienne Médina de Ait Rbaa, Diar EL Mehdi est plus qu'une simple auberge : c'est un voyage dans le temps. Restauré avec amour par des artisans locaux, notre riad met en valeur l'art traditionnel marocain — des plafonds en cèdre sculpté à la main aux zelliges géométriques complexes. Venez découvrir la véritable hospitalité marocaine dans une atmosphère chaleureuse et intime, où chaque détail raconte une histoire.
-          </p>
+      {/* Artistic Pattern Section */}
+      <section className="relative py-28 md:py-36 overflow-hidden bg-mahogany">
+        {/* Pattern Background */}
+        <div
+          className="absolute inset-0 bg-repeat bg-center opacity-15"
+          style={{ backgroundImage: 'url(/pattern.svg)', backgroundSize: '600px auto' }}
+        />
+        {/* Gradient Overlays for smooth edges */}
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-cream to-transparent z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-cream to-transparent z-10" />
+        {/* Content */}
+        <div className="relative z-20 container mx-auto px-4 text-center">
+          <h2 className="font-amiri text-6xl md:text-8xl lg:text-9xl text-gold font-bold tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] leading-tight">
+            Diar EL Mehdi
+          </h2>
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <span className="block h-px w-16 md:w-24 bg-gold/60" />
+            <span className="text-sand/80 text-2xl md:text-3xl font-playfair italic tracking-widest">
+              ✦
+            </span>
+            <span className="block h-px w-16 md:w-24 bg-gold/60" />
+          </div>
         </div>
       </section>
 
