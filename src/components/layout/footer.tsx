@@ -16,7 +16,7 @@ export function Footer() {
           <div>
             <h3 className="font-playfair text-3xl font-bold text-gold mb-6">Diar EL Mehdi</h3>
             <p className="text-sand/80 leading-relaxed mb-6 font-thin">
-              Votre havre de paix au cœur de Meknès. Découvrez l'hospitalité marocaine authentique dans un cadre traditionnel alliant confort moderne et architecture ancestrale.
+              Votre havre de paix au cœur de Ait Rbaa. Découvrez l'hospitalité marocaine authentique dans un cadre traditionnel alliant confort moderne et architecture ancestrale.
             </p>
             <div className="flex gap-4">
               <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-terracotta transition text-white">
@@ -34,7 +34,7 @@ export function Footer() {
             <ul className="space-y-4 text-sand/90">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-terracotta flex-shrink-0 mt-0.5" />
-                <span>Ancienne Médina, Meknès<br/>Maroc</span>
+                <span>Ancienne Médina, Ait Rbaa<br/>Maroc</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-terracotta flex-shrink-0" />

@@ -51,7 +51,7 @@ export default async function Home() {
             Bienvenue à Diar EL Mehdi
           </h1>
           <p className="text-xl md:text-3xl text-sand font-light drop-shadow-md mb-12 max-w-3xl mx-auto">
-            Votre havre de paix au cœur de Meknès
+            Votre havre de paix au cœur de Ait Rbaa
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export default async function Home() {
           <h2 className="font-playfair text-4xl text-mahogany font-bold mb-8">Découvrez Notre Histoire</h2>
           <ZelligeDivider className="max-w-[200px] mx-auto opacity-50 h-[20px]" />
           <p className="text-lg text-gray-700 leading-relaxed mt-8 font-light">
-            Niché dans les ruelles historiques de l'ancienne Médina de Meknès, Diar EL Mehdi est plus qu'une simple auberge : c'est un voyage dans le temps. Restauré avec amour par des artisans locaux, notre riad met en valeur l'art traditionnel marocain — des plafonds en cèdre sculpté à la main aux zelliges géométriques complexes. Venez découvrir la véritable hospitalité marocaine dans une atmosphère chaleureuse et intime, où chaque détail raconte une histoire.
+            Niché dans les ruelles historiques de l'ancienne Médina de Ait Rbaa, Diar EL Mehdi est plus qu'une simple auberge : c'est un voyage dans le temps. Restauré avec amour par des artisans locaux, notre riad met en valeur l'art traditionnel marocain — des plafonds en cèdre sculpté à la main aux zelliges géométriques complexes. Venez découvrir la véritable hospitalité marocaine dans une atmosphère chaleureuse et intime, où chaque détail raconte une histoire.
           </p>
         </div>
       </section>
@@ -138,7 +138,7 @@ export default async function Home() {
                 country: "France"
               },
               {
-                text: "Le meilleur endroit pour séjourner à Meknès. Le petit-déjeuner sur la terrasse était magique.",
+                text: "Le meilleur endroit pour séjourner à Ait Rbaa. Le petit-déjeuner sur la terrasse était magique.",
                 author: "Omar K.",
                 country: "Maroc"
               },
@@ -159,6 +159,30 @@ export default async function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Localization Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="font-playfair text-4xl text-mahogany font-bold mb-4 text-center">Nous Trouver</h2>
+          <p className="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+            Situé au cœur de Ait Rbaa, Diar EL Mehdi vous accueille dans un cadre authentique et facilement accessible.
+          </p>
+          <ZelligeDivider className="max-w-[200px] mx-auto opacity-50 h-[20px] mb-10" />
+          <div className="relative w-full overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] ring-1 ring-black/5">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d527.2097519764902!2d-5.131127748582001!3d33.842594089393394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDUxJzA4LjUiTiA1wrAwOCczNi4yIlc!5e0!3m2!1sen!2sma!4v1776539161425!5m2!1sen!2sma"
+                className="absolute inset-0 w-full h-full"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localisation de Diar EL Mehdi à Ait Rbaa"
+              />
+            </div>
           </div>
         </div>
       </section>
