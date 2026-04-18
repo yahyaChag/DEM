@@ -86,63 +86,67 @@ export default function AdminReservationsPage() {
 
       <Card>
         <CardContent className="p-0">
-          <Table>
-            <TableHeader className="bg-sand/30">
-              <TableRow>
-                <TableHead>Référence</TableHead>
-                <TableHead>Client</TableHead>
-                <TableHead>Chambre</TableHead>
-                <TableHead>Dates</TableHead>
-                <TableHead>Montant</TableHead>
-                <TableHead>Statut</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {loading ? (
+          <div className="overflow-x-auto overflow-y-hidden">
+            <Table>
+              <TableHeader className="bg-sand/30">
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center h-24 text-gray-500">Chargement des réservations...</TableCell>
+                  <TableHead className="whitespace-nowrap px-4">Référence</TableHead>
+                  <TableHead className="whitespace-nowrap px-4">Client</TableHead>
+                  <TableHead className="whitespace-nowrap px-4">Chambre</TableHead>
+                  <TableHead className="whitespace-nowrap px-4">Dates</TableHead>
+                  <TableHead className="whitespace-nowrap px-4">Montant</TableHead>
+                  <TableHead className="whitespace-nowrap px-4">Statut</TableHead>
+                  <TableHead className="whitespace-nowrap px-4 text-right">Actions</TableHead>
                 </TableRow>
-              ) : filteredBookings.length > 0 ? (
-                filteredBookings.map((b) => (
-                  <TableRow key={b.id}>
-                    <TableCell className="font-mono">{b.booking_reference}</TableCell>
-                    <TableCell>
-                      <div className="font-medium">{b.guest_name}</div>
-                      <div className="text-xs text-gray-500">{b.guest_phone}</div>
-                    </TableCell>
-                    <TableCell>{b.rooms?.name || 'Inconnue'}</TableCell>
-                    <TableCell>
-                      {new Date(b.check_in).toLocaleDateString('fr-FR')} au {new Date(b.check_out).toLocaleDateString('fr-FR')}
-                    </TableCell>
-                    <TableCell>
-                      {b.total_price} MAD
-                      <br />
-                      <Badge variant="outline" className="text-[10px] mt-1">{b.payment_status}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <StatusBadge status={b.status} />
-                    </TableCell>
-                    <TableCell>
-                      {b.status === 'En attente' && (
-                        <Button size="sm" onClick={() => updateStatus(b.id, 'Confirmée')} className="mr-2 bg-olive hover:bg-jade">Confirmer</Button>
-                      )}
-                      {b.status === 'Confirmée' && (
-                        <Button size="sm" onClick={() => updateStatus(b.id, 'Arrivé')} className="mr-2 bg-terracotta hover:bg-mahogany">Check-in</Button>
-                      )}
-                      {b.status === 'Arrivé' && (
-                        <Button size="sm" variant="outline" onClick={() => updateStatus(b.id, 'Départ')} className="mr-2">Check-out</Button>
-                      )}
-                    </TableCell>
+              </TableHeader>
+              <TableBody>
+                {loading ? (
+                  <TableRow>
+                    <TableCell colSpan={7} className="text-center h-24 text-gray-500">Chargement des réservations...</TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={7} className="text-center h-24 text-gray-500">Aucune réservation trouvée pour ce filtre.</TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                ) : filteredBookings.length > 0 ? (
+                  filteredBookings.map((b) => (
+                    <TableRow key={b.id}>
+                      <TableCell className="font-mono px-4">{b.booking_reference}</TableCell>
+                      <TableCell className="px-4">
+                        <div className="font-medium">{b.guest_name}</div>
+                        <div className="text-xs text-gray-500">{b.guest_phone}</div>
+                      </TableCell>
+                      <TableCell className="px-4">{b.rooms?.name || 'Inconnue'}</TableCell>
+                      <TableCell className="px-4 whitespace-nowrap">
+                        {new Date(b.check_in).toLocaleDateString('fr-FR')} au {new Date(b.check_out).toLocaleDateString('fr-FR')}
+                      </TableCell>
+                      <TableCell className="px-4">
+                        {b.total_price} MAD
+                        <br />
+                        <Badge variant="outline" className="text-[10px] mt-1">{b.payment_status}</Badge>
+                      </TableCell>
+                      <TableCell className="px-4">
+                        <StatusBadge status={b.status} />
+                      </TableCell>
+                      <TableCell className="px-4 text-right">
+                        <div className="flex gap-2 justify-end">
+                          {b.status === 'En attente' && (
+                            <Button size="sm" onClick={() => updateStatus(b.id, 'Confirmée')} className="bg-olive hover:bg-jade">Confirmer</Button>
+                          )}
+                          {b.status === 'Confirmée' && (
+                            <Button size="sm" onClick={() => updateStatus(b.id, 'Arrivé')} className="bg-terracotta hover:bg-mahogany">Check-in</Button>
+                          )}
+                          {b.status === 'Arrivé' && (
+                            <Button size="sm" variant="outline" onClick={() => updateStatus(b.id, 'Départ')}>Check-out</Button>
+                          )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={7} className="text-center h-24 text-gray-500">Aucune réservation trouvée pour ce filtre.</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>
