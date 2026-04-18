@@ -9,8 +9,18 @@ import Link from 'next/link';
 interface NavItem {
   name: string;
   href: string;
-  icon: any;
+  iconId: string;
 }
+
+const IconMap: Record<string, any> = {
+  dashboard: LayoutDashboard,
+  reservations: CalendarDays,
+  rooms: BedDouble,
+  service: UtensilsCrossed,
+  cleaning: Sparkles,
+  media: ImageIcon,
+  settings: Settings,
+};
 
 export function MobileNav({ navItems }: { navItems: NavItem[] }) {
   const [open, setOpen] = React.useState(false);
@@ -29,17 +39,20 @@ export function MobileNav({ navItems }: { navItems: NavItem[] }) {
             </SheetTitle>
           </SheetHeader>
           <nav className="flex flex-col gap-2 p-4 mt-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-4 py-3 text-sand/80 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                <item.icon className="h-5 w-5 text-terracotta" />
-                <span className="font-medium">{item.name}</span>
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const Icon = IconMap[item.iconId] || LayoutDashboard;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 rounded-lg px-4 py-3 text-sand/80 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  <Icon className="h-5 w-5 text-terracotta" />
+                  <span className="font-medium">{item.name}</span>
+                </Link>
+              );
+            })}
             
             <div className="mt-8 pt-8 border-t border-white/10">
               <Link 

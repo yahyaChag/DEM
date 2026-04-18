@@ -18,14 +18,25 @@ export default async function AdminLayout({
   }
 
   const navItems = [
-    { name: 'Tableau de Bord', href: '/admin/dashboard', icon: LayoutDashboard },
-    { name: 'Réservations', href: '/admin/reservations', icon: CalendarDays },
-    { name: 'Chambres', href: '/admin/chambres', icon: BedDouble },
-    { name: 'Service d\'étage', href: '/admin/service-etage', icon: UtensilsCrossed },
-    { name: 'Nettoyage', href: '/admin/nettoyage', icon: Sparkles },
-    { name: 'Médias', href: '/admin/medias', icon: ImageIcon },
-    { name: 'Paramètres', href: '/admin/parametres', icon: Settings },
+    { name: 'Tableau de Bord', href: '/admin/dashboard', iconId: 'dashboard' },
+    { name: 'Réservations', href: '/admin/reservations', iconId: 'reservations' },
+    { name: 'Chambres', href: '/admin/chambres', iconId: 'rooms' },
+    { name: 'Service d\'étage', href: '/admin/service-etage', iconId: 'service' },
+    { name: 'Nettoyage', href: '/admin/nettoyage', iconId: 'cleaning' },
+    { name: 'Médias', href: '/admin/medias', iconId: 'media' },
+    { name: 'Paramètres', href: '/admin/parametres', iconId: 'settings' },
   ];
+
+  // Map icon identifiers to components for the server-side desktop sidebar
+  const IconMap: Record<string, any> = {
+    dashboard: LayoutDashboard,
+    reservations: CalendarDays,
+    rooms: BedDouble,
+    service: UtensilsCrossed,
+    cleaning: Sparkles,
+    media: ImageIcon,
+    settings: Settings,
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -38,16 +49,19 @@ export default async function AdminLayout({
           </Link>
         </div>
         <nav className="flex flex-1 flex-col gap-2 p-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-sand/80 transition-colors hover:bg-white/10 hover:text-white"
-            >
-              <item.icon className="h-5 w-5 text-terracotta" />
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const Icon = IconMap[item.iconId];
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sand/80 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <Icon className="h-5 w-5 text-terracotta" />
+                {item.name}
+              </Link>
+            );
+          })}
           <div className="mt-auto">
             <Link href="/" target="_blank" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sand/60 transition-colors hover:text-white">
               Voir le site public
