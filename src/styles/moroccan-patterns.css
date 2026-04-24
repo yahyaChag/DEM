@@ -1,21 +1,90 @@
 /* src/styles/moroccan-patterns.css */
 
+/* ═══ Zellige Diamond Pattern ═══ */
 .zellige-bg {
   background-color: var(--cream);
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23C4663A' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
   background-size: 40px 40px;
 }
 
+/* ═══ Arch Border ═══ */
 .arch-border {
   border-top-left-radius: 50% 20px;
   border-top-right-radius: 50% 20px;
 }
 
+/* ═══ Lantern Glow ═══ */
 .lantern-glow {
   box-shadow: 0 0 15px 5px rgba(197, 153, 46, 0.4);
 }
 
-/* Custom Scrollbar */
+/* ═══ Rich Zellige Geometric Overlay ═══ */
+.zellige-overlay {
+  position: relative;
+}
+
+.zellige-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C5992E' stroke-width='0.5' stroke-opacity='0.12'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z'/%3E%3Cpath d='M40 10L70 40L40 70L10 40Z'/%3E%3Cpath d='M40 20L60 40L40 60L20 40Z'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ═══ Zellige animated gradient border ═══ */
+.zellige-border {
+  position: relative;
+  background: linear-gradient(135deg, var(--cream), white);
+}
+
+.zellige-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--terracotta) 15%,
+    var(--gold) 35%,
+    var(--jade) 50%,
+    var(--gold) 65%,
+    var(--terracotta) 85%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ═══ Star-shaped arabesque decorative element ═══ */
+.arabesque-star {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.arabesque-star::before {
+  content: '✦';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 18px;
+}
+
+/* ═══ Custom Scrollbar ═══ */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -28,4 +97,32 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--mahogany);
+}
+
+/* ═══ Section Divider ═══ */
+.section-divider {
+  position: relative;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--terracotta) 20%,
+    var(--gold) 50%,
+    var(--terracotta) 80%,
+    transparent
+  );
+  opacity: 0.4;
+}
+
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  background: var(--cream);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  border: 2px solid var(--gold);
 }

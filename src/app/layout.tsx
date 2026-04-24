@@ -3,6 +3,7 @@ import { Inter, Playfair_Display, Amiri } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { MobileBottomNav } from '@/components/layout/mobile-bottom-nav';
 import { Toaster } from '@/components/ui/sonner';
 
 const inter = Inter({ 
@@ -35,10 +36,11 @@ export default function RootLayout({
     <html lang="fr" className="scroll-smooth">
       <body className={`${inter.variable} ${playfair.variable} ${amiri.variable} font-sans antialiased min-h-screen flex flex-col bg-cream`}>
         <Header />
-        <main className="flex-1 flex flex-col relative w-full">
+        <main className="flex-1 flex flex-col relative w-full has-bottom-nav">
           {children}
         </main>
         <Footer />
+        <MobileBottomNav />
         <Toaster position="top-center" richColors />
       </body>
     </html>
