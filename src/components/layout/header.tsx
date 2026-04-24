@@ -1,14 +1,27 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // initial check
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'Accueil', href: '/' },
@@ -18,69 +31,137 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-terracotta/20 bg-cream/90 backdrop-blur-md">
+    <header
+      className={cn(
+        "fixed top-0 z-50 w-full border-b transition-all duration-500",
+        isHome && !scrolled
+          ? "header-transparent border-transparent"
+          : "header-solid"
+      )}
+    >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-8">
         <div className="flex items-center gap-2">
-          {/* Logo - Decorative font */}
+          {/* Logo */}
           <Link href="/" className="flex flex-col">
-            <span className="font-playfair text-3xl font-bold text-mahogany leading-none">Diar EL Mehdi</span>
-            <span className="text-xs text-terracotta tracking-widest uppercase">Auberge de Charme</span>
+            <span
+              className={cn(
+                "font-playfair text-3xl font-bold leading-none transition-colors duration-500",
+                isHome && !scrolled ? "text-white" : "text-mahogany"
+              )}
+            >
+              Diar EL Mehdi
+            </span>
+            <span
+              className={cn(
+                "text-xs tracking-widest uppercase transition-colors duration-500",
+                isHome && !scrolled ? "text-gold/80" : "text-terracotta"
+              )}
+            >
+              Auberge de Charme
+            </span>
           </Link>
         </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
+            <Link
+              key={link.name}
               href={link.href}
-              className="text-sm font-medium text-mahogany/80 hover:text-terracotta transition-colors relative group"
+              className={cn(
+                "text-sm font-medium transition-colors relative group",
+                isHome && !scrolled
+                  ? "text-white/80 hover:text-white"
+                  : "text-mahogany/70 hover:text-terracotta"
+              )}
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-terracotta transition-all group-hover:w-full"></span>
+              <span
+                className={cn(
+                  "absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full",
+                  isHome && !scrolled ? "bg-gold" : "bg-terracotta"
+                )}
+              />
             </Link>
           ))}
           <Link href="/chambres" passHref>
-            <Button className="bg-terracotta hover:bg-mahogany text-white rounded-full px-6">
+            <Button className="magnetic-btn bg-terracotta hover:bg-mahogany text-white rounded-full px-6 shadow-md">
               Réserver
             </Button>
           </Link>
         </nav>
 
-        {/* Mobile Nav */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger
-              render={<Button variant="ghost" size="icon" className="text-mahogany" />}
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={cn(
+                    "transition-colors",
+                    isHome && !scrolled ? "text-white hover:bg-white/10" : "text-mahogany"
+                  )}
+                />
+              }
             >
               <Menu className="h-6 w-6" />
               <span className="sr-only">Menu principal</span>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-cream border-l border-terracotta/20 flex flex-col pt-20">
-              <nav className="flex flex-col gap-6">
-                {navLinks.map((link) => (
-                  <Link 
-                    key={link.name} 
+            <SheetContent side="right" className="bg-cream border-l border-terracotta/15 flex flex-col pt-16 w-[85vw] max-w-sm">
+              {/* Decorative header */}
+              <div className="mb-8 px-2">
+                <p className="font-playfair text-3xl font-bold text-mahogany">Diar EL Mehdi</p>
+                <p className="text-xs text-terracotta tracking-widest uppercase mt-1">Auberge de Charme</p>
+                <div className="mt-4 h-0.5 w-12 bg-gradient-to-r from-terracotta to-gold rounded" />
+              </div>
+
+              <nav className="flex flex-col gap-2 px-2">
+                {navLinks.map((link, idx) => (
+                  <Link
+                    key={link.name}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-2xl font-playfair font-semibold text-mahogany hover:text-terracotta transition-colors"
+                    className="group flex items-center gap-4 py-3 px-4 rounded-xl text-lg font-playfair font-semibold text-mahogany hover:bg-terracotta/5 hover:text-terracotta transition-all"
+                    style={{ animationDelay: `${idx * 80}ms` }}
                   >
+                    <span className="w-6 h-0.5 bg-terracotta/20 group-hover:bg-terracotta group-hover:w-8 transition-all rounded" />
                     {link.name}
                   </Link>
                 ))}
-                <div className="mt-8">
+                <div className="mt-6">
                   <Link href="/chambres" passHref onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-terracotta hover:bg-mahogany text-white h-12 text-lg">
+                    <Button className="w-full magnetic-btn bg-terracotta hover:bg-mahogany text-white h-14 text-lg rounded-xl shadow-lg">
                       Réserver votre séjour
                     </Button>
                   </Link>
                 </div>
               </nav>
+
+              {/* Bottom decorative */}
+              <div className="mt-auto pb-8 px-2">
+                <div className="ornament-line">
+                  <span className="text-gold text-sm">✦</span>
+                </div>
+                <p className="text-center text-mahogany/30 text-xs mt-4">
+                  Ait Rbaa — Moyen Atlas, Maroc
+                </p>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
       </div>
-      <div className="h-1 w-full bg-gradient-to-r from-terracotta/40 via-gold/40 to-terracotta/40" />
+
+      {/* Bottom gradient border — only visible when scrolled/solid */}
+      <div
+        className={cn(
+          "h-[2px] w-full transition-opacity duration-500",
+          scrolled || !isHome
+            ? "opacity-100 bg-gradient-to-r from-terracotta/30 via-gold/30 to-terracotta/30"
+            : "opacity-0"
+        )}
+      />
     </header>
   );
 }
