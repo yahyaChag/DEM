@@ -283,7 +283,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           ═══════════════════════════════════════════════ */}
       <section
         id="hero"
-        className="relative h-[100svh] min-h-[650px] w-full flex items-center justify-center overflow-hidden"
+        className="relative h-[100svh] min-h-[850px] md:min-h-[650px] w-full flex items-center justify-center overflow-hidden"
       >
         {/* Parallax background */}
         <div
@@ -294,7 +294,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-20 container mx-auto px-5 text-center mt-[-60px] md:mt-0">
+        <div className="relative z-20 container mx-auto px-5 text-center mt-[-120px] md:mt-0 pb-32 md:pb-0">
           {/* Decorative line */}
           <div className="hero-entrance-1 ornament-line mb-6">
             <span className="text-gold text-lg">✦</span>
@@ -332,7 +332,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
         </div>
 
         {/* Booking widget floating at bottom */}
-        <div className="hero-entrance-4 absolute bottom-6 md:bottom-8 left-0 right-0 z-30 px-4 flex justify-center">
+        <div className="hero-entrance-4 absolute bottom-4 md:bottom-8 left-0 right-0 z-30 px-4 flex justify-center">
           <BookingSearch className="w-full max-w-4xl booking-glow" />
         </div>
 

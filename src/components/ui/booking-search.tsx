@@ -40,7 +40,7 @@ export function BookingSearch({ className }: { className?: string }) {
   };
 
   return (
-    <div className={cn("bg-white p-4 rounded-lg shadow-xl lantern-glow flex flex-col md:flex-row gap-4 items-end", className)}>
+    <div className={cn("bg-white p-4 rounded-lg shadow-xl lantern-glow flex flex-col md:flex-row gap-4 md:items-end", className)}>
       <div className="flex-1 w-full flex flex-col gap-2">
         <label className="text-sm font-medium text-mahogany">Dates du séjour</label>
         <Popover>
