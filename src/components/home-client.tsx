@@ -362,7 +362,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           </div>
 
           {/* Content: gallery + text on large, stacked on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20 md:mb-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12 md:mb-16">
             {/* Gallery — Archway masked images */}
             <div ref={featuresRef} className="relative">
               <div className="scroll-reveal-left grid grid-cols-2 gap-4">
@@ -370,7 +370,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
                   <div
                     key={idx}
                     className={`relative overflow-hidden rounded-2xl ${
-                      idx === 0 ? 'col-span-2 h-64 md:h-80' : 'h-44 md:h-52'
+                      idx === 0 ? 'col-span-2 h-80 md:h-[400px]' : 'h-52 md:h-[250px]'
                     }`}
                   >
                     <div className={idx === 0 ? 'arch-mask h-full' : 'h-full'}>
