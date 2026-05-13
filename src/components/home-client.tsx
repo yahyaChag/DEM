@@ -366,11 +366,12 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
             {/* Gallery — Archway masked images */}
             <div ref={featuresRef} className="relative">
               <div className="scroll-reveal-left grid grid-cols-2 gap-4">
-                {heroImages.slice(0, 3).map((img, idx) => (
+                {heroImages.filter(img => !!img).slice(0, 3).map((img, idx, filtered) => (
                   <div
                     key={idx}
                     className={`relative overflow-hidden rounded-2xl ${
-                      idx === 0 ? 'col-span-2 h-80 md:h-[400px]' : 'h-52 md:h-[250px]'
+                      idx === 0 && filtered.length > 1 ? 'col-span-2 h-80 md:h-[400px]' : 
+                      filtered.length === 1 ? 'col-span-2 h-80 md:h-[400px]' : 'h-52 md:h-[250px]'
                     }`}
                   >
                     <div className={idx === 0 ? 'arch-mask h-full' : 'h-full'}>
