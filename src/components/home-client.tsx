@@ -31,43 +31,7 @@ interface HomeClientProps {
    HOOKS
    ═══════════════════════════════════════════════════════ */
 
-function useScrollReveal() {
-  const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Reveal the parent and all children with scroll-reveal classes
-            const revealElements = el.querySelectorAll(
-              '.scroll-reveal, .scroll-reveal-left, .scroll-reveal-scale'
-            );
-            revealElements.forEach((child) => child.classList.add('visible'));
-            // Also add to self if it has the class
-            if (
-              el.classList.contains('scroll-reveal') ||
-              el.classList.contains('scroll-reveal-left') ||
-              el.classList.contains('scroll-reveal-scale')
-            ) {
-              el.classList.add('visible');
-            }
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return ref;
-}
 
 function useParallax() {
   const [scrollY, setScrollY] = useState(0);
@@ -153,15 +117,13 @@ function FeatureCard({
   icon: Icon,
   title,
   description,
-  delayClass,
 }: {
   icon: React.ElementType;
   title: string;
   description: string;
-  delayClass: string;
 }) {
   return (
-    <div className={`scroll-reveal ${delayClass} group`}>
+    <div className="group">
       <div className="relative p-8 rounded-2xl bg-white/80 border border-terracotta/10 shadow-sm hover:shadow-xl hover:border-gold/30 transition-all duration-500 h-full">
         {/* Decorative corner */}
         <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
@@ -255,13 +217,7 @@ const testimonials = [
 export function HomeClient({ heroImages, rooms }: HomeClientProps) {
   const scrollY = useParallax();
 
-  // Refs for scroll-reveal sections
-  const experienceRef = useScrollReveal();
-  const featuresRef = useScrollReveal();
-  const roomsRef = useScrollReveal();
-  const testimonialsRef = useScrollReveal();
-  const ctaRef = useScrollReveal();
-  const mapRef = useScrollReveal();
+
 
   // Room carousel scroll controls
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -348,14 +304,14 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
 
         <div className="container mx-auto px-5 relative z-10">
           {/* Section header */}
-          <div ref={experienceRef} className="text-center mb-16 md:mb-20">
-            <p className="scroll-reveal text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
+          <div className="text-center mb-16 md:mb-20">
+            <p className="text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
               L&apos;Art de Vivre Marocain
             </p>
-            <h2 className="scroll-reveal delay-100 font-playfair text-4xl md:text-5xl lg:text-6xl text-mahogany font-bold mb-6">
+            <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-mahogany font-bold mb-6">
               Vivez l&apos;Expérience <span className="text-terracotta">Diar EL Mehdi</span>
             </h2>
-            <div className="scroll-reveal delay-200 ornament-line">
+            <div className="ornament-line">
               <span className="text-gold text-xl">✦</span>
             </div>
           </div>
@@ -363,8 +319,8 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           {/* Content: gallery + text on large, stacked on mobile */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20 md:mb-28">
             {/* Gallery — Archway masked images */}
-            <div ref={featuresRef} className="relative">
-              <div className="scroll-reveal-left grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="relative">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {/* 1. Main large arch image (Spans 2 columns, 2 rows on desktop) */}
                 <div className="col-span-2 md:col-span-2 md:row-span-2 h-[350px] md:h-[500px] relative overflow-hidden rounded-3xl shadow-lg group">
                   <div className="arch-mask h-full">
@@ -422,7 +378,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
             </div>
 
             {/* Description text */}
-            <div className="scroll-reveal">
+            <div>
               <h3 className="font-playfair text-3xl md:text-4xl text-mahogany font-bold mb-6 leading-tight">
                 Un Refuge d&apos;Authenticité au Cœur du Moyen Atlas
               </h3>
@@ -449,19 +405,16 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
               icon={Sparkles}
               title="Architecture Ancestrale"
               description="Des murs en pisé ocre, des arcs en briques et des plafonds en bois de cèdre sculptés à la main — chaque détail est une œuvre d'art."
-              delayClass="delay-100"
             />
             <FeatureCard
               icon={Utensils}
               title="Cuisine Authentique"
               description="Savourez les saveurs du terroir : tajines mijotés lentement, pain cuit au four traditionnel et thé à la menthe parfumé."
-              delayClass="delay-200"
             />
             <FeatureCard
               icon={TreePine}
               title="Sérénité Naturelle"
               description="Entouré par les collines boisées du Moyen Atlas, profitez d'un cadre naturel exceptionnel pour la randonnée et la contemplation."
-              delayClass="delay-300"
             />
           </div>
         </div>
@@ -476,19 +429,19 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-cream to-white overflow-hidden">
         <div className="container mx-auto px-5">
           {/* Section header */}
-          <div ref={roomsRef} className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-16">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-16">
             <div>
-              <p className="scroll-reveal text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
+              <p className="text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
                 Nos Espaces
               </p>
-              <h2 className="scroll-reveal delay-100 font-playfair text-4xl md:text-5xl text-mahogany font-bold mb-4">
+              <h2 className="font-playfair text-4xl md:text-5xl text-mahogany font-bold mb-4">
                 Chambres d&apos;Exception
               </h2>
-              <p className="scroll-reveal delay-200 text-mahogany/55 max-w-xl text-base">
+              <p className="text-mahogany/55 max-w-xl text-base">
                 Chaque chambre est une invitation au voyage, mêlant tradition architecturale marocaine et confort contemporain.
               </p>
             </div>
-            <div className="scroll-reveal delay-300 flex gap-3 mt-6 md:mt-0">
+            <div className="flex gap-3 mt-6 md:mt-0">
               <button
                 onClick={() => scrollCarousel('left')}
                 className="w-12 h-12 rounded-full border border-terracotta/20 flex items-center justify-center text-mahogany/60 hover:bg-terracotta hover:text-white hover:border-terracotta transition-all duration-300"
@@ -548,16 +501,16 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           }}
         />
 
-        <div ref={testimonialsRef} className="container mx-auto px-5 relative z-10">
+        <div className="container mx-auto px-5 relative z-10">
           {/* Section header */}
           <div className="text-center mb-16">
-            <p className="scroll-reveal text-gold/70 text-sm tracking-[0.25em] uppercase font-medium mb-4">
+            <p className="text-gold/70 text-sm tracking-[0.25em] uppercase font-medium mb-4">
               Témoignages
             </p>
-            <h2 className="scroll-reveal delay-100 font-playfair text-4xl md:text-5xl text-white font-bold mb-6">
+            <h2 className="font-playfair text-4xl md:text-5xl text-white font-bold mb-6">
               Ce que disent <span className="shimmer-gold">nos invités</span>
             </h2>
-            <div className="scroll-reveal delay-200 ornament-line">
+            <div className="ornament-line">
               <span className="text-gold text-lg">✦</span>
             </div>
           </div>
@@ -567,7 +520,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
             {testimonials.map((t, idx) => (
               <div
                 key={idx}
-                className={`scroll-reveal delay-${(idx + 1) * 100} glass-card p-8 flex flex-col justify-between group hover:bg-white/10 transition-all duration-500`}
+                className="glass-card p-8 flex flex-col justify-between group hover:bg-white/10 transition-all duration-500"
               >
                 <div>
                   <Quote className="w-8 h-8 text-gold/50 mb-4 group-hover:text-gold/80 transition-colors" />
@@ -596,9 +549,9 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           ═══════════════════════════════════════════════ */}
       <section className="relative py-20 md:py-28 bg-white overflow-hidden">
         <div className="container mx-auto px-5">
-          <div ref={mapRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
             {/* Map */}
-            <div className="scroll-reveal-left order-2 lg:order-1">
+            <div className="order-2 lg:order-1">
               <div className="relative w-full overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.1)] ring-1 ring-mahogany/5">
                 <div className="relative w-full" style={{ paddingBottom: '75%' }}>
                   <iframe
@@ -615,7 +568,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
             </div>
 
             {/* CTA content */}
-            <div className="scroll-reveal order-1 lg:order-2 text-center lg:text-left">
+            <div className="order-1 lg:order-2 text-center lg:text-left">
               <p className="text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
                 Nous Rejoindre
               </p>
