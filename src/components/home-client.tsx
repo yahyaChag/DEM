@@ -147,6 +147,39 @@ function HeroSlider({ images }: { images: string[] }) {
 }
 
 /* ═══════════════════════════════════════════════════════
+   FEATURE CARD
+   ═══════════════════════════════════════════════════════ */
+
+function FeatureCard({
+  icon: Icon,
+  title,
+  description,
+  delayClass,
+}: {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  delayClass: string;
+}) {
+  return (
+    <div className={`scroll-reveal ${delayClass} group`}>
+      <div className="relative p-8 rounded-2xl bg-white/80 border border-terracotta/10 shadow-sm hover:shadow-xl hover:border-gold/30 transition-all duration-500 h-full">
+        {/* Decorative corner */}
+        <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
+          <div className="absolute top-0 right-0 w-24 h-24 -translate-y-1/2 translate-x-1/2 bg-gradient-to-bl from-terracotta/8 to-transparent rounded-full" />
+        </div>
+
+        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-terracotta/15 to-gold/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+          <Icon className="w-7 h-7 text-terracotta" strokeWidth={1.5} />
+        </div>
+        <h3 className="font-playfair text-xl font-bold text-mahogany mb-3">{title}</h3>
+        <p className="text-mahogany/60 leading-relaxed text-sm">{description}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
    ROOM CAROUSEL CARD
    ═══════════════════════════════════════════════════════ */
 
@@ -224,7 +257,8 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
   const scrollY = useParallax();
 
   // Refs for scroll-reveal sections
-
+  const experienceRef = useScrollReveal();
+  const featuresRef = useScrollReveal();
   const roomsRef = useScrollReveal();
   const testimonialsRef = useScrollReveal();
   const ctaRef = useScrollReveal();
@@ -249,7 +283,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           ═══════════════════════════════════════════════ */}
       <section
         id="hero"
-        className="relative h-[85svh] min-h-[550px] md:min-h-[650px] w-full flex items-center justify-center overflow-hidden"
+        className="relative h-[100svh] min-h-[850px] md:min-h-[650px] w-full flex items-center justify-center overflow-hidden"
       >
         {/* Parallax background */}
         <div
@@ -306,15 +340,116 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent z-30" />
       </section>
 
+      {/* ═══════════════════════════════════════════════
+          SECTION 2: EXPERIENCE THE AUBERGE
+          ═══════════════════════════════════════════════ */}
+      <section className="relative py-20 md:py-28 clay-texture overflow-hidden">
+        {/* Subtle zellige overlay */}
+        <div className="zellige-overlay absolute inset-0 pointer-events-none" />
 
+        <div className="container mx-auto px-5 relative z-10">
+          {/* Section header */}
+          <div ref={experienceRef} className="text-center mb-16 md:mb-20">
+            <p className="scroll-reveal text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
+              L&apos;Art de Vivre Marocain
+            </p>
+            <h2 className="scroll-reveal delay-100 font-playfair text-4xl md:text-5xl lg:text-6xl text-mahogany font-bold mb-6">
+              Vivez l&apos;Expérience <span className="text-terracotta">Diar EL Mehdi</span>
+            </h2>
+            <div className="scroll-reveal delay-200 ornament-line">
+              <span className="text-gold text-xl">✦</span>
+            </div>
+          </div>
+
+          {/* Content: gallery + text on large, stacked on mobile */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20 md:mb-28">
+            {/* Gallery — Archway masked images */}
+            <div ref={featuresRef} className="relative">
+              <div className="scroll-reveal-left grid grid-cols-2 gap-4">
+                {heroImages.slice(0, 4).map((img, idx) => (
+                  <div
+                    key={idx}
+                    className={`relative overflow-hidden rounded-2xl ${
+                      idx === 0 ? 'col-span-2 h-64 md:h-80' : 'h-44 md:h-52'
+                    }`}
+                  >
+                    <div className={idx === 0 ? 'arch-mask h-full' : 'h-full'}>
+                      <img
+                        src={img}
+                        alt={`Diar EL Mehdi - Ambiance ${idx + 1}`}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
+                    {idx === 0 && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent" />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Decorative floating badge */}
+              <div className="absolute -bottom-6 -right-3 md:-right-6 bg-mahogany text-gold px-5 py-3 rounded-xl shadow-xl z-20 hidden md:block" style={{ animation: 'floatY 4s ease-in-out infinite' }}>
+                <p className="text-xs text-sand/70 uppercase tracking-wider">Depuis</p>
+                <p className="text-2xl font-playfair font-bold">2024</p>
+              </div>
+            </div>
+
+            {/* Description text */}
+            <div className="scroll-reveal-right">
+              <h3 className="font-playfair text-3xl md:text-4xl text-mahogany font-bold mb-6 leading-tight">
+                Un Refuge d&apos;Authenticité au Cœur du Moyen Atlas
+              </h3>
+              <p className="text-mahogany/65 leading-relaxed mb-6 text-base md:text-lg">
+                Nichée dans le village pittoresque d&apos;Ait Rbaa, notre auberge est un hommage vivant à l&apos;artisanat marocain.
+                Chaque mur en pisé, chaque arc en briques et chaque motif de zellige raconte une histoire centenaire.
+              </p>
+              <p className="text-mahogany/65 leading-relaxed mb-8 text-base md:text-lg">
+                Ici, le temps s&apos;arrête. L&apos;air pur de l&apos;Atlas, le chant des oiseaux et l&apos;hospitalité berbère
+                vous transportent dans un monde de sérénité et de bien-être.
+              </p>
+              <Link href="/chambres">
+                <Button className="magnetic-btn bg-terracotta hover:bg-mahogany text-white rounded-full px-8 h-12 text-sm font-medium">
+                  Explorer nos chambres
+                  <ChevronRight className="ml-1 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Features grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <FeatureCard
+              icon={Sparkles}
+              title="Architecture Ancestrale"
+              description="Des murs en pisé ocre, des arcs en briques et des plafonds en bois de cèdre sculptés à la main — chaque détail est une œuvre d'art."
+              delayClass="delay-100"
+            />
+            <FeatureCard
+              icon={Utensils}
+              title="Cuisine Authentique"
+              description="Savourez les saveurs du terroir : tajines mijotés lentement, pain cuit au four traditionnel et thé à la menthe parfumé."
+              delayClass="delay-200"
+            />
+            <FeatureCard
+              icon={TreePine}
+              title="Sérénité Naturelle"
+              description="Entouré par les collines boisées du Moyen Atlas, profitez d'un cadre naturel exceptionnel pour la randonnée et la contemplation."
+              delayClass="delay-300"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Zellige section divider */}
+      <div className="section-divider" />
 
       {/* ═══════════════════════════════════════════════
           SECTION 3: ROOM SNEAK-PEEK CAROUSEL
           ═══════════════════════════════════════════════ */}
-      <section className="relative py-12 md:py-20 bg-gradient-to-b from-cream to-white overflow-hidden">
+      <section className="relative py-20 md:py-28 bg-gradient-to-b from-cream to-white overflow-hidden">
         <div className="container mx-auto px-5">
           {/* Section header */}
-          <div ref={roomsRef} className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-12">
+          <div ref={roomsRef} className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-16">
             <div>
               <p className="scroll-reveal text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
                 Nos Espaces
