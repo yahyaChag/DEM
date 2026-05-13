@@ -283,7 +283,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           ═══════════════════════════════════════════════ */}
       <section
         id="hero"
-        className="relative min-h-[100svh] md:h-[100svh] md:min-h-[650px] w-full flex flex-col items-center justify-center overflow-hidden pt-24 pb-6 md:p-0"
+        className="relative h-[100svh] min-h-[850px] md:min-h-[650px] w-full flex items-center justify-center overflow-hidden"
       >
         {/* Parallax background */}
         <div
@@ -294,7 +294,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-20 container mx-auto px-5 text-center flex-1 flex flex-col justify-center w-full">
+        <div className="relative z-20 container mx-auto px-5 text-center mt-[-120px] md:mt-0 pb-32 md:pb-0">
           {/* Decorative line */}
           <div className="hero-entrance-1 ornament-line mb-6">
             <span className="text-gold text-lg">✦</span>
@@ -332,7 +332,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
         </div>
 
         {/* Booking widget floating at bottom */}
-        <div className="hero-entrance-4 relative md:absolute md:bottom-8 left-0 right-0 z-30 px-4 w-full flex justify-center mt-8 md:mt-0">
+        <div className="hero-entrance-4 absolute bottom-4 md:bottom-8 left-0 right-0 z-30 px-4 flex justify-center">
           <BookingSearch className="w-full max-w-4xl booking-glow" />
         </div>
 
@@ -362,42 +362,37 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           </div>
 
           {/* Content: gallery + text on large, stacked on mobile */}
-          <div className={`grid grid-cols-1 ${heroImages?.length > 0 ? 'lg:grid-cols-2' : ''} gap-8 lg:gap-12 items-center mb-16 md:mb-24`}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20 md:mb-28">
             {/* Gallery — Archway masked images */}
-            {heroImages?.length > 0 && (
-              <div ref={featuresRef} className="relative w-full">
-                <div className={`scroll-reveal-left grid gap-3 md:gap-4 ${heroImages.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
-                  {heroImages.map((img, idx, arr) => (
-                    <div
-                      key={idx}
-                      className={`relative overflow-hidden rounded-2xl ${
-                        arr.length === 1 ? 'aspect-[4/3] md:aspect-video' :
-                        idx === 0 ? 'col-span-2 aspect-[4/3] md:aspect-video' : 
-                        (arr.length % 2 === 0 && idx === arr.length - 1) ? 'col-span-2 aspect-[21/9] md:aspect-[3/1]' :
-                        'col-span-1 aspect-square md:aspect-[4/3]'
-                      }`}
-                    >
-                      <div className={idx === 0 ? 'arch-mask h-full w-full' : 'h-full w-full'}>
-                        <img
-                          src={img}
-                          alt={`Diar EL Mehdi - Ambiance ${idx + 1}`}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                        />
-                      </div>
-                      {idx === 0 && (
-                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent" />
-                      )}
+            <div ref={featuresRef} className="relative">
+              <div className="scroll-reveal-left grid grid-cols-2 gap-4">
+                {heroImages.slice(0, 4).map((img, idx) => (
+                  <div
+                    key={idx}
+                    className={`relative overflow-hidden rounded-2xl ${
+                      idx === 0 ? 'col-span-2 h-64 md:h-80' : 'h-44 md:h-52'
+                    }`}
+                  >
+                    <div className={idx === 0 ? 'arch-mask h-full' : 'h-full'}>
+                      <img
+                        src={img}
+                        alt={`Diar EL Mehdi - Ambiance ${idx + 1}`}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                      />
                     </div>
-                  ))}
-                </div>
-
-                {/* Decorative floating badge */}
-                <div className="absolute -bottom-6 -right-3 md:-right-6 bg-mahogany text-gold px-5 py-3 rounded-xl shadow-xl z-20 hidden md:block" style={{ animation: 'floatY 4s ease-in-out infinite' }}>
-                  <p className="text-xs text-sand/70 uppercase tracking-wider">Depuis</p>
-                  <p className="text-2xl font-playfair font-bold">2024</p>
-                </div>
+                    {idx === 0 && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent" />
+                    )}
+                  </div>
+                ))}
               </div>
-            )}
+
+              {/* Decorative floating badge */}
+              <div className="absolute -bottom-6 -right-3 md:-right-6 bg-mahogany text-gold px-5 py-3 rounded-xl shadow-xl z-20 hidden md:block" style={{ animation: 'floatY 4s ease-in-out infinite' }}>
+                <p className="text-xs text-sand/70 uppercase tracking-wider">Depuis</p>
+                <p className="text-2xl font-playfair font-bold">2024</p>
+              </div>
+            </div>
 
             {/* Description text */}
             <div className="scroll-reveal-right">
