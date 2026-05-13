@@ -44,14 +44,13 @@ function useScrollReveal() {
           if (entry.isIntersecting) {
             // Reveal the parent and all children with scroll-reveal classes
             const revealElements = el.querySelectorAll(
-              '.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale'
+              '.scroll-reveal, .scroll-reveal-left, .scroll-reveal-scale'
             );
             revealElements.forEach((child) => child.classList.add('visible'));
             // Also add to self if it has the class
             if (
               el.classList.contains('scroll-reveal') ||
               el.classList.contains('scroll-reveal-left') ||
-              el.classList.contains('scroll-reveal-right') ||
               el.classList.contains('scroll-reveal-scale')
             ) {
               el.classList.add('visible');
@@ -423,7 +422,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
             </div>
 
             {/* Description text */}
-            <div className="scroll-reveal-right">
+            <div className="scroll-reveal">
               <h3 className="font-playfair text-3xl md:text-4xl text-mahogany font-bold mb-6 leading-tight">
                 Un Refuge d&apos;Authenticité au Cœur du Moyen Atlas
               </h3>
@@ -616,7 +615,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
             </div>
 
             {/* CTA content */}
-            <div className="scroll-reveal-right order-1 lg:order-2 text-center lg:text-left">
+            <div className="scroll-reveal order-1 lg:order-2 text-center lg:text-left">
               <p className="text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
                 Nous Rejoindre
               </p>
