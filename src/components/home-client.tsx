@@ -362,39 +362,42 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           </div>
 
           {/* Content: gallery + text on large, stacked on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20 md:mb-28">
+          <div className={`grid grid-cols-1 ${heroImages?.length > 0 ? 'lg:grid-cols-2' : ''} gap-8 lg:gap-12 items-center mb-16 md:mb-24`}>
             {/* Gallery — Archway masked images */}
-            <div ref={featuresRef} className="relative">
-              <div className="scroll-reveal-left grid grid-cols-2 gap-4">
-                {heroImages.slice(0, 4).map((img, idx, arr) => (
-                  <div
-                    key={idx}
-                    className={`relative overflow-hidden rounded-2xl ${
-                      idx === 0 ? 'col-span-2 h-64 md:h-80' : 
-                      (arr.length === 2 && idx === 1) || (arr.length === 4 && idx === 3) ? 'col-span-2 h-44 md:h-52' :
-                      'col-span-1 h-44 md:h-52'
-                    }`}
-                  >
-                    <div className={idx === 0 ? 'arch-mask h-full' : 'h-full'}>
-                      <img
-                        src={img}
-                        alt={`Diar EL Mehdi - Ambiance ${idx + 1}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                      />
+            {heroImages?.length > 0 && (
+              <div ref={featuresRef} className="relative w-full">
+                <div className={`scroll-reveal-left grid gap-3 md:gap-4 ${heroImages.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                  {heroImages.map((img, idx, arr) => (
+                    <div
+                      key={idx}
+                      className={`relative overflow-hidden rounded-2xl ${
+                        arr.length === 1 ? 'aspect-[4/3] md:aspect-video' :
+                        idx === 0 ? 'col-span-2 aspect-[4/3] md:aspect-video' : 
+                        (arr.length % 2 === 0 && idx === arr.length - 1) ? 'col-span-2 aspect-[21/9] md:aspect-[3/1]' :
+                        'col-span-1 aspect-square md:aspect-[4/3]'
+                      }`}
+                    >
+                      <div className={idx === 0 ? 'arch-mask h-full w-full' : 'h-full w-full'}>
+                        <img
+                          src={img}
+                          alt={`Diar EL Mehdi - Ambiance ${idx + 1}`}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                      {idx === 0 && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent" />
+                      )}
                     </div>
-                    {idx === 0 && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent" />
-                    )}
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
-              {/* Decorative floating badge */}
-              <div className="absolute -bottom-6 -right-3 md:-right-6 bg-mahogany text-gold px-5 py-3 rounded-xl shadow-xl z-20 hidden md:block" style={{ animation: 'floatY 4s ease-in-out infinite' }}>
-                <p className="text-xs text-sand/70 uppercase tracking-wider">Depuis</p>
-                <p className="text-2xl font-playfair font-bold">2024</p>
+                {/* Decorative floating badge */}
+                <div className="absolute -bottom-6 -right-3 md:-right-6 bg-mahogany text-gold px-5 py-3 rounded-xl shadow-xl z-20 hidden md:block" style={{ animation: 'floatY 4s ease-in-out infinite' }}>
+                  <p className="text-xs text-sand/70 uppercase tracking-wider">Depuis</p>
+                  <p className="text-2xl font-playfair font-bold">2024</p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Description text */}
             <div className="scroll-reveal-right">
