@@ -283,7 +283,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           ═══════════════════════════════════════════════ */}
       <section
         id="hero"
-        className="relative h-[100svh] min-h-[850px] md:min-h-[650px] w-full flex items-center justify-center overflow-hidden"
+        className="relative h-[85svh] min-h-[550px] md:min-h-[650px] w-full flex items-center justify-center overflow-hidden"
       >
         {/* Parallax background */}
         <div
@@ -343,13 +343,13 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
       {/* ═══════════════════════════════════════════════
           SECTION 2: EXPERIENCE THE AUBERGE
           ═══════════════════════════════════════════════ */}
-      <section className="relative py-20 md:py-28 clay-texture overflow-hidden">
+      <section className="relative py-4 md:py-28 clay-texture overflow-hidden">
         {/* Subtle zellige overlay */}
         <div className="zellige-overlay absolute inset-0 pointer-events-none" />
 
         <div className="container mx-auto px-5 relative z-10">
           {/* Section header */}
-          <div ref={experienceRef} className="text-center mb-16 md:mb-20">
+          <div ref={experienceRef} className="text-center mb-4 md:mb-20">
             <p className="scroll-reveal text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
               L&apos;Art de Vivre Marocain
             </p>
@@ -362,7 +362,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           </div>
 
           {/* Content: gallery + text on large, stacked on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 items-center mb-6 md:mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-6 items-center mb-4 md:mb-8">
             {/* Gallery — Archway masked images */}
             <div ref={featuresRef} className="relative">
               <div className="scroll-reveal-left grid grid-cols-2 gap-4">
