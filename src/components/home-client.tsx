@@ -362,7 +362,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           </div>
 
           {/* Content: gallery + text on large, stacked on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12 md:mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 items-center mb-6 md:mb-8">
             {/* Gallery — Archway masked images */}
             <div ref={featuresRef} className="relative">
               <div className="scroll-reveal-left grid grid-cols-2 gap-4">
