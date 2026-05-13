@@ -343,7 +343,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
       {/* ═══════════════════════════════════════════════
           SECTION 2: EXPERIENCE THE AUBERGE
           ═══════════════════════════════════════════════ */}
-      <section className="relative py-4 md:py-28 clay-texture overflow-hidden">
+      <section className="relative pt-4 pb-12 md:pt-28 md:pb-20 clay-texture overflow-hidden">
         {/* Subtle zellige overlay */}
         <div className="zellige-overlay absolute inset-0 pointer-events-none" />
 
@@ -446,10 +446,10 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
       {/* ═══════════════════════════════════════════════
           SECTION 3: ROOM SNEAK-PEEK CAROUSEL
           ═══════════════════════════════════════════════ */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-cream to-white overflow-hidden">
+      <section className="relative py-12 md:py-20 bg-gradient-to-b from-cream to-white overflow-hidden">
         <div className="container mx-auto px-5">
           {/* Section header */}
-          <div ref={roomsRef} className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 md:mb-16">
+          <div ref={roomsRef} className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-12">
             <div>
               <p className="scroll-reveal text-terracotta text-sm tracking-[0.25em] uppercase font-medium mb-4">
                 Nos Espaces
