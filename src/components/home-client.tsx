@@ -362,7 +362,7 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           </div>
 
           {/* Content: gallery + text on large, stacked on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-6 items-center mb-4 md:mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-6 md:items-center mb-4 md:mb-8">
             {/* Gallery — Archway masked images */}
             <div ref={featuresRef} className="relative">
               <div className="scroll-reveal-left grid grid-cols-2 gap-4">
@@ -396,14 +396,14 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
 
             {/* Description text */}
             <div className="scroll-reveal-right">
-              <h3 className="font-playfair text-3xl md:text-4xl text-mahogany font-bold mb-6 leading-tight">
+              <h3 className="font-playfair text-3xl md:text-4xl text-mahogany font-bold mb-4 leading-tight">
                 Un Refuge d&apos;Authenticité au Cœur du Moyen Atlas
               </h3>
-              <p className="text-mahogany/65 leading-relaxed mb-6 text-base md:text-lg">
+              <p className="text-mahogany/65 leading-relaxed mb-4 text-base md:text-lg">
                 Nichée dans le village pittoresque d&apos;Ait Rbaa, notre auberge est un hommage vivant à l&apos;artisanat marocain.
                 Chaque mur en pisé, chaque arc en briques et chaque motif de zellige raconte une histoire centenaire.
               </p>
-              <p className="text-mahogany/65 leading-relaxed mb-8 text-base md:text-lg">
+              <p className="text-mahogany/65 leading-relaxed mb-6 text-base md:text-lg">
                 Ici, le temps s&apos;arrête. L&apos;air pur de l&apos;Atlas, le chant des oiseaux et l&apos;hospitalité berbère
                 vous transportent dans un monde de sérénité et de bien-être.
               </p>
