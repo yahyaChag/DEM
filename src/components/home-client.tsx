@@ -365,26 +365,54 @@ export function HomeClient({ heroImages, rooms }: HomeClientProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20 md:mb-28">
             {/* Gallery — Archway masked images */}
             <div ref={featuresRef} className="relative">
-              <div className="scroll-reveal-left grid grid-cols-2 gap-4">
-                {heroImages.slice(0, 4).map((img, idx) => (
-                  <div
-                    key={idx}
-                    className={`relative overflow-hidden rounded-2xl ${
-                      idx === 0 ? 'col-span-2 h-64 md:h-80' : 'h-44 md:h-52'
-                    }`}
-                  >
-                    <div className={idx === 0 ? 'arch-mask h-full' : 'h-full'}>
-                      <img
-                        src={img}
-                        alt={`Diar EL Mehdi - Ambiance ${idx + 1}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                      />
-                    </div>
-                    {idx === 0 && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent" />
-                    )}
+              <div className="scroll-reveal-left grid grid-cols-2 md:grid-cols-3 gap-4">
+                {/* 1. Main large arch image (Spans 2 columns, 2 rows on desktop) */}
+                <div className="col-span-2 md:col-span-2 md:row-span-2 h-[350px] md:h-[500px] relative overflow-hidden rounded-3xl shadow-lg group">
+                  <div className="arch-mask h-full">
+                    <img
+                      src={heroImages[0]}
+                      alt="Diar EL Mehdi - Ambiance"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]"
+                    />
                   </div>
-                ))}
+                  <div className="absolute inset-0 bg-gradient-to-t from-mahogany/40 via-transparent to-transparent pointer-events-none" />
+                </div>
+
+                {/* 2. Top right vertical image */}
+                <div className="col-span-1 md:col-span-1 h-[170px] md:h-[242px] relative overflow-hidden rounded-3xl shadow-md group">
+                  <img
+                    src={heroImages[1]}
+                    alt="Detail 1"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-3xl" />
+                </div>
+
+                {/* 3. Bottom right square image */}
+                <div className="col-span-1 md:col-span-1 h-[170px] md:h-[242px] relative overflow-hidden rounded-3xl shadow-md group">
+                  <img
+                    src={heroImages[2]}
+                    alt="Detail 2"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-3xl" />
+                </div>
+
+                {/* 4. Full-width accent image at bottom (Desktop: 3 columns wide) */}
+                <div className="col-span-2 md:col-span-3 h-[120px] md:h-[180px] relative overflow-hidden rounded-3xl shadow-md group">
+                  <img
+                    src={heroImages[3]}
+                    alt="Detail 3"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]"
+                  />
+                  {/* Decorative overlay */}
+                  <div className="absolute inset-0 bg-mahogany/20 group-hover:bg-transparent transition-colors duration-500" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Decorative floating badge */}
